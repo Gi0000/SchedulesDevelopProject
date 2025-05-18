@@ -1,9 +1,11 @@
 package com.example.schedulesdevelopproject.service;
 
 import com.example.schedulesdevelopproject.dto.ScheduleResponseDto;
+import com.example.schedulesdevelopproject.dto.UpdateScheduleRequestDto;
 import com.example.schedulesdevelopproject.entity.Schedule;
 import com.example.schedulesdevelopproject.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,5 +45,12 @@ public class ScheduleService {
                 findSchedule.getUsername(),
                 findSchedule.getTitle(),
                 findSchedule.getContents());
+    }
+
+    @Transactional
+    public void updateById(Long id, String title, String contents) {
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        findSchedule.updateSchedule(title, contents);
     }
 }

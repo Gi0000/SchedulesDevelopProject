@@ -1,5 +1,6 @@
 package com.example.schedulesdevelopproject.repository;
 
+import com.example.schedulesdevelopproject.dto.UpdateScheduleRequestDto;
 import com.example.schedulesdevelopproject.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;

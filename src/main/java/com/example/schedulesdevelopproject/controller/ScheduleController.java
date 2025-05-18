@@ -2,6 +2,7 @@ package com.example.schedulesdevelopproject.controller;
 
 import com.example.schedulesdevelopproject.dto.CreateScheduleRequestDto;
 import com.example.schedulesdevelopproject.dto.ScheduleResponseDto;
+import com.example.schedulesdevelopproject.dto.UpdateScheduleRequestDto;
 import com.example.schedulesdevelopproject.entity.Schedule;
 import com.example.schedulesdevelopproject.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +40,14 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> findById (@PathVariable Long id) {
         ScheduleResponseDto scheduleResponseDto = scheduleService.findById(id);
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> updateById(
+            @PathVariable Long id,
+            @RequestBody UpdateScheduleRequestDto requestDto) {
+        scheduleService.updateById(id, requestDto.getTitle(), requestDto.getContents());
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
