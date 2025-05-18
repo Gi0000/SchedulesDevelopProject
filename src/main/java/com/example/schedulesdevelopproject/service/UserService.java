@@ -6,6 +6,7 @@ import com.example.schedulesdevelopproject.dto.UserResponseDto;
 import com.example.schedulesdevelopproject.entity.User;
 import com.example.schedulesdevelopproject.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,5 +43,12 @@ public class UserService {
                 findUser.getUsername(),
                 findUser.getEmail()
         );
+    }
+
+    @Transactional
+    public void updateUserById(Long id, String username, String email) {
+        User findUser = userRepository.findByIdOrElseThrow(id);
+
+        findUser.updateUser(username, email);
     }
 }

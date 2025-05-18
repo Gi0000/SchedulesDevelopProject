@@ -1,10 +1,9 @@
 package com.example.schedulesdevelopproject.controller;
 
 import com.example.schedulesdevelopproject.dto.CreateUserRequestDto;
+import com.example.schedulesdevelopproject.dto.UpdateUserRequestDto;
 import com.example.schedulesdevelopproject.dto.UserResponseDto;
-import com.example.schedulesdevelopproject.entity.User;
 import com.example.schedulesdevelopproject.service.UserService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +43,14 @@ public class UserController {
         return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserResponseDto> updateUserById(
+            @PathVariable Long id,
+            @RequestBody UpdateUserRequestDto requestDto
+            ) {
+        userService.updateUserById(id, requestDto.getUsername(), requestDto.getEmail());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
