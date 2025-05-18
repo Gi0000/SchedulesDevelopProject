@@ -3,12 +3,10 @@ package com.example.schedulesdevelopproject.controller;
 import com.example.schedulesdevelopproject.dto.CreateScheduleRequestDto;
 import com.example.schedulesdevelopproject.dto.ScheduleResponseDto;
 import com.example.schedulesdevelopproject.dto.UpdateScheduleRequestDto;
-import com.example.schedulesdevelopproject.entity.Schedule;
 import com.example.schedulesdevelopproject.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
