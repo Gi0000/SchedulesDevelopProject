@@ -2,6 +2,7 @@ package com.example.schedulesdevelopproject.controller;
 
 import com.example.schedulesdevelopproject.dto.CreateUserRequestDto;
 import com.example.schedulesdevelopproject.dto.UserResponseDto;
+import com.example.schedulesdevelopproject.entity.User;
 import com.example.schedulesdevelopproject.service.UserService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,14 @@ public class UserController {
     public ResponseEntity<List<UserResponseDto>> findAllUser() {
         List<UserResponseDto> userResponseDtoList = userService.findAllUser();
         return new ResponseEntity<>(userResponseDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDto> findUserById(
+            @PathVariable Long id
+    ) {
+        UserResponseDto userResponseDto = userService.findUserById(id);
+        return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
     }
 
 

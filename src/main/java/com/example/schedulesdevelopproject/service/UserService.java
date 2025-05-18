@@ -34,4 +34,13 @@ public class UserService {
                 .map(UserResponseDto::toDto)
                 .toList();
     }
+
+    public UserResponseDto findUserById(Long id) {
+        User findUser = userRepository.findByIdOrElseThrow(id);
+        return new UserResponseDto(
+                findUser.getId(),
+                findUser.getUsername(),
+                findUser.getEmail()
+        );
+    }
 }
