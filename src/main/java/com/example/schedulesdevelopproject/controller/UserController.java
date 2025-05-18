@@ -3,13 +3,13 @@ package com.example.schedulesdevelopproject.controller;
 import com.example.schedulesdevelopproject.dto.CreateUserRequestDto;
 import com.example.schedulesdevelopproject.dto.UserResponseDto;
 import com.example.schedulesdevelopproject.service.UserService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -27,6 +27,12 @@ public class UserController {
                         requestDto.getEmail()
                 );
         return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserResponseDto>> findAllUser() {
+        List<UserResponseDto> userResponseDtoList = userService.findAllUser();
+        return new ResponseEntity<>(userResponseDtoList, HttpStatus.OK);
     }
 
 
