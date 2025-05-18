@@ -51,4 +51,8 @@ public class UserService {
 
         findUser.updateUser(username, email);
     }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
 }
