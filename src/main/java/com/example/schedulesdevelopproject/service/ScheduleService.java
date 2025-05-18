@@ -6,6 +6,7 @@ import com.example.schedulesdevelopproject.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ScheduleService {
@@ -32,5 +33,15 @@ public class ScheduleService {
                 .stream()
                 .map(ScheduleResponseDto::toDto)
                 .toList();
+    }
+
+    public ScheduleResponseDto findById(Long id) {
+        Schedule findSchedule = scheduleRepository.findByIdOrElseThrow(id);
+
+        return new ScheduleResponseDto(
+                findSchedule.getScheduleId(),
+                findSchedule.getUsername(),
+                findSchedule.getTitle(),
+                findSchedule.getContents());
     }
 }
