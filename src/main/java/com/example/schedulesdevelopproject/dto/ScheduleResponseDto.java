@@ -5,13 +5,13 @@ import lombok.Getter;
 
 @Getter
 public class ScheduleResponseDto {
-    private final Long id;
+    private final Long scheduleId;
     private final String username;
     private final String title;
     private final String contents;
 
-    public ScheduleResponseDto(Long id, String username, String title, String contents) {
-        this.id = id;
+    public ScheduleResponseDto(Long scheduleId, String username, String title, String contents) {
+        this.scheduleId = scheduleId;
         this.username = username;
         this.title = title;
         this.contents = contents;

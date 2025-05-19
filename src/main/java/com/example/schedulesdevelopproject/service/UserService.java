@@ -24,7 +24,7 @@ public class UserService {
         User savedUser = userRepository.save(user);
 
         return new UserResponseDto(
-                savedUser.getId(),
+                savedUser.getUserId(),
                 savedUser.getUsername(),
                 savedUser.getEmail());
     }
@@ -39,7 +39,7 @@ public class UserService {
     public UserResponseDto findUserById(Long id) {
         User findUser = userRepository.findByIdOrElseThrow(id);
         return new UserResponseDto(
-                findUser.getId(),
+                findUser.getUserId(),
                 findUser.getUsername(),
                 findUser.getEmail()
         );

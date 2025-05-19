@@ -6,19 +6,19 @@ import lombok.Getter;
 
 @Getter
 public class UserResponseDto {
-    private final Long id;
+    private final Long userId;
     private final String username;
     private final String email;
 
-    public UserResponseDto(Long id, String username, String email) {
-        this.id = id;
+    public UserResponseDto(Long userId, String username, String email) {
+        this.userId = userId;
         this.username = username;
         this.email = email;
     }
 
     public static UserResponseDto toDto(User user) {
         return new UserResponseDto(
-                user.getId(),
+                user.getUserId(),
                 user.getUsername(),
                 user.getEmail()
         );
