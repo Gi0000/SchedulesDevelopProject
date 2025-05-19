@@ -30,8 +30,7 @@ public class LoginFilter implements Filter {
             HttpSession session = httpServletRequest.getSession(false);
 
             if (session == null || session.getAttribute("sessionKey 값") == null) {
-                httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                return;
+                throw new RuntimeException("로그인 해주세요.");
             }
         }
 
