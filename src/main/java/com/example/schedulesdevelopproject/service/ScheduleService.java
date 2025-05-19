@@ -3,9 +3,13 @@ package com.example.schedulesdevelopproject.service;
 import com.example.schedulesdevelopproject.dto.ScheduleResponseDto;
 import com.example.schedulesdevelopproject.dto.UpdateScheduleRequestDto;
 import com.example.schedulesdevelopproject.entity.Schedule;
+import com.example.schedulesdevelopproject.entity.User;
 import com.example.schedulesdevelopproject.repository.ScheduleRepository;
+import com.example.schedulesdevelopproject.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,19 +17,23 @@ import java.util.Optional;
 @Service
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
-    public ScheduleService(ScheduleRepository scheduleRepository) {
+    public ScheduleService(ScheduleRepository scheduleRepository, UserRepository userRepository) {
         this.scheduleRepository = scheduleRepository;
+        this.userRepository = userRepository;
     }
 
-    public ScheduleResponseDto save(String username, String title, String contents) {
-        Schedule schedule = new Schedule(username, title, contents);
+    public ScheduleResponseDto save(Long userId, String title, String contents) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found. id = " + userId));
 
+        Schedule schedule = new Schedule(user, title, contents);
         scheduleRepository.save(schedule);
 
         return new ScheduleResponseDto(
                 schedule.getScheduleId(),
-                schedule.getUsername(),
+                user.getUsername(),
                 schedule.getTitle(),
                 schedule.getContents());
     }
@@ -42,7 +50,7 @@ public class ScheduleService {
 
         return new ScheduleResponseDto(
                 findSchedule.getScheduleId(),
-                findSchedule.getUsername(),
+                findSchedule.getUser().getUsername(),
                 findSchedule.getTitle(),
                 findSchedule.getContents());
     }
