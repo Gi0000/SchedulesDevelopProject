@@ -24,7 +24,8 @@ public class UserController {
         UserResponseDto userResponseDto =
                 userService.save(
                         requestDto.getUsername(),
-                        requestDto.getEmail()
+                        requestDto.getEmail(),
+                        requestDto.getPassword()
                 );
         return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
     }

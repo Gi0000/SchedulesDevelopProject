@@ -18,8 +18,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserResponseDto save(String username, String email) {
-        User user = new User(username, email);
+    public UserResponseDto save(String username, String email, String password) {
+        User user = new User(username, email, password);
 
         User savedUser = userRepository.save(user);
 
