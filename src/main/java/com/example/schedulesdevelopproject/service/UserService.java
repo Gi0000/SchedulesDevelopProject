@@ -1,6 +1,7 @@
 package com.example.schedulesdevelopproject.service;
 
 import com.example.schedulesdevelopproject.dto.CreateUserRequestDto;
+import com.example.schedulesdevelopproject.dto.LoginResponseDto;
 import com.example.schedulesdevelopproject.dto.ScheduleResponseDto;
 import com.example.schedulesdevelopproject.dto.UserResponseDto;
 import com.example.schedulesdevelopproject.entity.User;
@@ -42,6 +43,16 @@ public class UserService {
                 findUser.getUserId(),
                 findUser.getUsername(),
                 findUser.getEmail()
+        );
+    }
+
+    public LoginResponseDto findLoginUserById(Long id) {
+        User findUser = userRepository.findByIdOrElseThrow(id);
+        return new LoginResponseDto(
+                findUser.getUserId(),
+                findUser.getUsername(),
+                findUser.getEmail(),
+                findUser.getPassword()
         );
     }
 

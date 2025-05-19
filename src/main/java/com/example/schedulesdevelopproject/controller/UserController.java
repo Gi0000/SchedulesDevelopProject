@@ -1,9 +1,9 @@
 package com.example.schedulesdevelopproject.controller;
 
-import com.example.schedulesdevelopproject.dto.CreateUserRequestDto;
-import com.example.schedulesdevelopproject.dto.UpdateUserRequestDto;
-import com.example.schedulesdevelopproject.dto.UserResponseDto;
+import com.example.schedulesdevelopproject.dto.*;
 import com.example.schedulesdevelopproject.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +16,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequestDto requestDto, HttpServletRequest request ) {
+        LoginResponseDto loginResponseDto = userService.findLoginUserById(requestDto.getUserId());
+
+        if (requestDto.getEmail().equals(loginResponseDto.getEmail()) &&
+                requestDto.getPassword().equals(loginResponseDto.getPassword())) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("user", loginResponseDto.getEmail());
+            return ResponseEntity.ok("Login success");
+        }
+
+        return ResponseEntity.status(401).body("Invalid email or password");
+    }
+
+
 
     @PostMapping("/signup")
     public ResponseEntity<UserResponseDto> signUp(
@@ -61,4 +77,6 @@ public class UserController {
         userService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 }
