@@ -1,5 +1,6 @@
 package com.example.schedulesdevelopproject.service;
 
+import com.example.schedulesdevelopproject.config.PasswordEncoder;
 import com.example.schedulesdevelopproject.dto.CreateUserRequestDto;
 import com.example.schedulesdevelopproject.dto.LoginResponseDto;
 import com.example.schedulesdevelopproject.dto.ScheduleResponseDto;
@@ -14,13 +15,18 @@ import java.util.List;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
+
     public UserResponseDto save(String username, String email, String password) {
-        User user = new User(username, email, password);
+        String encodedPassword = passwordEncoder.encode(password);
+
+        User user = new User(username, email, encodedPassword);
 
         User savedUser = userRepository.save(user);
 

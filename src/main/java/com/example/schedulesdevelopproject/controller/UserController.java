@@ -1,5 +1,6 @@
 package com.example.schedulesdevelopproject.controller;
 
+import com.example.schedulesdevelopproject.config.PasswordEncoder;
 import com.example.schedulesdevelopproject.dto.*;
 import com.example.schedulesdevelopproject.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,13 +18,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDto requestDto, HttpServletRequest request ) {
         LoginResponseDto loginResponseDto = userService.findLoginUserById(requestDto.getUserId());
 
+
         if (requestDto.getEmail().equals(loginResponseDto.getEmail()) &&
-                requestDto.getPassword().equals(loginResponseDto.getPassword())) {
+                passwordEncoder.matches(requestDto.getPassword(), loginResponseDto.getPassword())) {
             HttpSession session = request.getSession(true);
             session.setAttribute("user", loginResponseDto.getEmail());
             return ResponseEntity.ok("Login success");
