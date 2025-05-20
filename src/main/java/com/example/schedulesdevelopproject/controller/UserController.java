@@ -4,6 +4,7 @@ import com.example.schedulesdevelopproject.dto.*;
 import com.example.schedulesdevelopproject.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserResponseDto> signUp(
-            @RequestBody CreateUserRequestDto requestDto
+            @RequestBody @Valid CreateUserRequestDto requestDto
     ) {
         UserResponseDto userResponseDto =
                 userService.save(
@@ -63,7 +64,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUserById(
             @PathVariable Long id,
-            @RequestBody UpdateUserRequestDto requestDto
+            @RequestBody @Valid UpdateUserRequestDto requestDto
             ) {
         userService.updateUserById(id, requestDto.getUsername(), requestDto.getEmail());
 
