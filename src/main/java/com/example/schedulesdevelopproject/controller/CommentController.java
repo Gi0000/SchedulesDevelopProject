@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/comments")
 @AllArgsConstructor
@@ -27,6 +29,14 @@ public class CommentController {
                         requestDto.getContents()
                 );
         return new ResponseEntity<>(commentResponseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{schedule_id}")
+    public ResponseEntity<List<CommentResponseDto>> findAll(
+            @PathVariable("schedule_id") Long scheduleId
+    ) {
+        List<CommentResponseDto> commentResponseDtoList = commentService.findAll(scheduleId);
+        return new ResponseEntity<>(commentResponseDtoList, HttpStatus.OK);
     }
 
 

@@ -1,8 +1,14 @@
 package com.example.schedulesdevelopproject.repository;
 
+import com.example.schedulesdevelopproject.dto.CommentResponseDto;
 import com.example.schedulesdevelopproject.entity.Comment;
+import com.example.schedulesdevelopproject.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Arrays;
+import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
+    List<Comment> findAllBySchedule(Schedule schedule);
 }

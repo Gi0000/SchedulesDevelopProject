@@ -9,7 +9,12 @@ import com.example.schedulesdevelopproject.repository.ScheduleRepository;
 import com.example.schedulesdevelopproject.repository.UserRepository;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.Comments;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -35,5 +40,14 @@ public class CommentService {
                 userId,
                 comment.getCommentContents()
         );
+    }
+
+    public List<CommentResponseDto> findAll(Long scheduleId) {
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
+
+        List<Comment> comments = commentRepository.findAllBySchedule(schedule);
+
+        return comments.stream().map(CommentResponseDto::toDto).toList();
+
     }
 }
