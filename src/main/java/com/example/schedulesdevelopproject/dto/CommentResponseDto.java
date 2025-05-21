@@ -1,5 +1,8 @@
 package com.example.schedulesdevelopproject.dto;
 
+import lombok.Getter;
+
+@Getter
 public class CommentResponseDto {
     private final Long commentId;
     private final Long scheduleId;
