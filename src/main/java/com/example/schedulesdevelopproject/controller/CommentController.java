@@ -39,6 +39,16 @@ public class CommentController {
         return new ResponseEntity<>(commentResponseDtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/{schedule_id}/{comment_id}")
+    public ResponseEntity<CommentResponseDto> findById(
+            @PathVariable("schedule_id") Long scheduleId,
+            @PathVariable("comment_id") Long commentId
+    ) {
+        CommentResponseDto commentResponseDto = commentService.findById(scheduleId, commentId);
+        return new ResponseEntity<>(commentResponseDto, HttpStatus.OK);
+
+    }
+
 
 
 }
