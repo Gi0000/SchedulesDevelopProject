@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.Comments;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,5 +70,11 @@ public class CommentService {
 
     public void deleteById(Long commentId) {
         commentRepository.deleteById(commentId);
+    }
+
+    @Transactional
+    public void updateById(Long id, String contents) {
+        Comment findComment = commentRepository.findByIdOrElseThrow(id);
+        findComment.updateComment(contents);
     }
 }
