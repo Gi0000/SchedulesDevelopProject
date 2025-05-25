@@ -182,39 +182,80 @@
     "contents": "contents1"
   }
   ```
-
 ### 일정 전체 조회
-- method :
+- method : GET
 - url : /schedules
-- request :
-- request example :
-- response :
+- request : X
+- response : 200 OK
+  - scheduleID(long)
+  - username(string)
+  - title(string)
+  - contents(string)
 - response example :
-
+  ```json
+  [
+    {
+      "scheduleId": 1,
+      "username": "이름1",
+      "title": "title1",
+      "contents": "contents1"
+    },
+    {
+      "scheduleId": 2,
+      "username": "이름1",
+      "title": "title2",
+      "contents": "contents2"
+    }
+  ]
+  ```
 ### 일정 단일 조회
-- method :
-- url : /schedules
-- request :
-- request example :
-- response :
+- method : GET
+- url : /schedules/{schedule_id}
+- request param :
+  - schedule_id(long)
+- response : 200 OK
+  - scheduleID(long)
+  - username(string)
+  - title(string)
+  - contents(string)
 - response example :
-
+  ```json
+  {
+    "scheduleId": 1,
+    "username": "이름1",
+    "title": "title1",
+    "contents": "contents1"
+  }
+  ```
+- no schedule response : 404 Not Found
+- response exaqmple :
+  ```json
+  {
+    "timestamp": "2025-05-25T09:22:25.930+00:00",
+    "status": 404,
+    "error": "Not Found",
+    "path": "/schedules/3"
+  }
+  ```
 ### 일정 수정
-- method :
-- url : /schedules
-- request :
+- method : PATCH
+- url : /schedules/{schedule_id}
+- request body :
+  - title(string)
+  - contents(string)
 - request example :
-- response :
-- response example :
-
-
+  ```json
+  {
+    "title" : "title1",
+    "contents" : "new content"
+  }
+  ```
+- response : 200 OK
 ### 일정 삭제
-- method :
-- url : /schedules
-- request :
-- request example :
-- response :
-- response example :
+- method : DELETE
+- url : /schedules/{schedule_id}
+- request : X
+- response : 200 OK
 
 
 
@@ -222,47 +263,112 @@
 
 ## comment
 ### 댓글 생성
-- method :
-- url : /comments
-- request :
+- method : POST
+- url : /comments/{schedule_id}
+- request param : 
+  - schedule_id(long)
+- request body :
+  - userId(long)
+  - contents(string)
 - request example :
-- response :
+  ```json
+  {
+    "userId" : 1,
+    "contents" : "comment1"
+  }
+  ```
+- response : 201 Created
+  - commentId(long)
+  - scheduleId(long)
+  - userId(long)
+  - commentContents(string)
 - response example :
+  ```json
+  {
+    "commentId": 1,
+    "scheduleId": 1,
+    "userId": 1,
+    "commentContents": "comment1"
+  }
+  ```
 
 ### 일정의 댓글 전체 조회
-- method :
-- url : /comments
-- request :
-- request example :
-- response :
+- method : GET
+- url : /comments/{schedule_id}
+- request param :
+  - schedule_id(long)
+- response : 200 OK 
+  - commentId(long)
+  - scheduleId(long)
+  - userId(long)
+  - commentContents(string)
 - response example :
+  ```json
+  [
+    {
+      "commentId": 1,
+      "scheduleId": 1,
+      "userId": 1,
+      "commentContents": "comment1"
+    },
+    {
+      "commentId": 2,
+      "scheduleId": 1,
+      "userId": 1,
+      "commentContents": "comment2"
+    },
+    {
+      "commentId": 3,
+      "scheduleId": 1,
+      "userId": 1,
+      "commentContents": "comment3"
+    }
+  ]
+  ```
 
 
 ### 일정의 댓글 단일 조회
-- method :
-- url : /comments
-- request :
-- request example :
-- response :
+- method : GET
+- url : /comments/{schedule_id}/{comment_id}
+- request param :
+  - schedule_id(long)
+  - comment_id(long)
+- response : 200 OK
+  - commentId(long)
+  - scheduleId(long)
+  - userId(long)
+  - commentContents(string)
 - response example :
-
+  ```json
+  {
+    "commentId": 1,
+    "scheduleId": 1,
+    "userId": 1,
+    "commentContents": "comment1"
+  }
+  ```
 
 ### 댓글 수정
-- method :
-- url : /comments
-- request :
+- method : PATCH
+- url : /comments/{comment_id}
+- request param :
+  - comment_id(long)
+- request body :
+  - contents(string)
 - request example :
-- response :
-- response example :
+  ```json
+  {
+    "contents" : "수정 후"
+  }
+  ```
+- response : 200 OK
 
 ### 댓글 삭제
-- method :
-- url : /comments
-- request :
-- request example :
-- response :
-- response example :
-
+- method : DELETE
+- url : /comments/{comment_id}
+- request param :
+  - comment_id(long)
+- response : 200 OK
 
 
 # ERD
